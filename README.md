@@ -1,14 +1,10 @@
-<<<<<<< HEAD
-# venue-ai-demo
-Premium multi-step AI demo: search venues → events trail → streamed answer (fake data, Anthropic)
-=======
 # Architect · Venue AI Demo
 
 Premium multi-step AI demo for event venue discovery.
 
 ## Product claim
 
-Ask **one** event or venue question. The assistant runs **searchVenues** and **getVenueEvents** in sequence with a **visible tool trail**, then streams a clear, polished final answer. All venue and event data is deterministic fake seed data — no live URVenue APIs, auth, database, or RAG.
+Ask **once**. Watch **searchVenues** and **getVenueEvents** run in sequence on a visible tool trail. Get a clear, streamed final answer on a polished page — not a toy chat UI. All venue and event data is deterministic fake seed data (no live URVenue APIs, auth, database, or RAG).
 
 ## Local run
 
@@ -18,7 +14,7 @@ Ask **one** event or venue question. The assistant runs **searchVenues** and **g
 npm install
 ```
 
-2. Set your Anthropic API key:
+2. Configure Anthropic:
 
 ```bash
 cp .env.example .env.local
@@ -31,7 +27,16 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000), submit a venue question, and watch the two-step tool trail plus streamed answer.
+Open [http://localhost:3000](http://localhost:3000), submit a venue question, and watch the tool trail plus streamed answer.
+
+## Tools
+
+The assistant always chains these two tools in order before answering:
+
+1. **searchVenues** — `{ city, capacityMin?, vibe? }` → matching venue summaries (id, name, city, capacity, vibe)
+2. **getVenueEvents** — `{ venueId, dateISO? }` → upcoming events for a venue id from search results (title, startsAt, openSlots)
+
+Never invent venue ids — only ids returned by **searchVenues** are valid for **getVenueEvents**.
 
 ## Environment
 
@@ -39,10 +44,3 @@ Open [http://localhost:3000](http://localhost:3000), submit a venue question, an
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | Yes | Anthropic API key for `@ai-sdk/anthropic` |
 | `ANTHROPIC_MODEL` | No | Model id override (default: `claude-sonnet-4-20250514`) |
-
-## Stack
-
-- Next.js App Router
-- Vercel AI SDK (`streamText`, `isStepCount`, UI message stream)
-- Anthropic via `@ai-sdk/anthropic`
->>>>>>> 482da8f (feat: premium multi-step AI venue demo with tool trail)
