@@ -43,4 +43,4 @@ Never invent venue ids — only ids returned by **searchVenues** are valid for *
 | Variable | Required | Description |
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | Yes | Anthropic API key for `@ai-sdk/anthropic` |
-| `ANTHROPIC_MODEL` | No | Model id override (default: `claude-sonnet-4-20250514`) |
+| `ANTHROPIC_MODEL` | No | Model id override (default: `claude-haiku-4-5`) |
